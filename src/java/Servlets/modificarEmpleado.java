@@ -9,7 +9,6 @@ import Beans.EmpleadoEJB;
 import Model.Empleado;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.List;
 import javax.ejb.EJB;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -21,11 +20,12 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author uriishii
  */
-@WebServlet(name = "EmpleadoS", urlPatterns = {"/EmpleadoS"})
-public class EmpleadoS extends HttpServlet {
-    
+@WebServlet(name = "modificarEmpleado", urlPatterns = {"/modificarEmpleado"})
+public class modificarEmpleado extends HttpServlet {
+
     @EJB
     EmpleadoEJB empleadoEJB;
+
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -39,21 +39,26 @@ public class EmpleadoS extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
-            List<Empleado> empleados = empleadoEJB.findAllEmpleados();
             /* TODO output your page here. You may use following sample code. */
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet EmpleadoS</title>");            
+            out.println("<title>Servlet modificarEmpleado</title>");
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Listado Empleados</h1>");
-            for(Empleado empleado: empleados){
-                out.print("<b>Nombre: </b>" + 
-                        empleado.getNombreusuario()+ 
-                        ", <b>Password: </b>" + 
-                        empleado.getPassword()+ "<br>");
+            String userName = request.getParameter("username");
+            String name = request.getParameter("name");
+            String phone = request.getParameter("phone");
+            Empleado e = new Empleado(userName, "", name, phone);
+            if (empleadoEJB.modificarEmpleado(e)) {
+                out.println("Empleado modificado.");
+            } else {
+                out.println("No hay ningun empleado con ese Nombre de Usuario");
             }
+            out.println("<form action=\"index.jsp\" method=\"POST\">"
+                    + "Volver a la pagina inicial"
+                    + "<input type=\"submit\" name=\"volver\" value=\"Volver\" />"
+                    + "</form>");
             out.println("</body>");
             out.println("</html>");
         }

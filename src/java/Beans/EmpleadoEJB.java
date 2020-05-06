@@ -5,7 +5,13 @@
  */
 package Beans;
 
+import Model.Empleado;
+import com.sun.xml.rpc.wsdl.framework.Entity;
+import java.util.List;
 import javax.ejb.Stateless;
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.PersistenceUnit;
 
 /**
  *
@@ -14,6 +20,41 @@ import javax.ejb.Stateless;
 @Stateless
 public class EmpleadoEJB {
 
-    // Add business logic below. (Right-click in editor and choose
-    // "Insert Code > Add Business Method")
+    @PersistenceUnit
+    EntityManagerFactory emf;
+
+    public List findAllEmpleados() {
+        return emf.createEntityManager().createNamedQuery("Empleado.findAll").getResultList();
+    }
+
+    public boolean insertarEmpleado(Empleado e) {
+        if (existEmpleado(e)) {
+            return false;
+        }
+        EntityManager em = emf.createEntityManager();
+        em.persist(e);
+        em.close();
+        return true;
+
+    }
+
+    public boolean existEmpleado(Empleado e) {
+        EntityManager em = emf.createEntityManager();
+        Empleado empleado = em.find(Empleado.class, e.getNombreusuario());
+        em.close();
+        return empleado != null;
+    }
+
+    public boolean modificarEmpleado(Empleado e) {
+        EntityManager em = emf.createEntityManager();
+        Empleado empleado = em.find(Empleado.class, e.getNombreusuario());
+        if (empleado != null) {
+            empleado.setNombrecompleto(e.getNombrecompleto());
+            empleado.setTelefono(e.getTelefono());
+            em.persist(empleado);
+            em.close();
+            return true;
+        }
+        return false;
+    }
 }

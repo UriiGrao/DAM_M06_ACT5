@@ -57,4 +57,15 @@ public class EmpleadoEJB {
         }
         return false;
     }
+
+    public boolean deleteEmpleado(Empleado e) {
+        EntityManager em = emf.createEntityManager();
+        Empleado empleado = em.find(Empleado.class, e.getNombreusuario());
+        if (empleado != null) {
+            em.remove(empleado);
+            em.close();
+            return true;
+        }
+        return false;
+    }
 }

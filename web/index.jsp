@@ -22,7 +22,8 @@
         <form action="modificarEmpleado.html" method="POST">Modificar el perfil de un empleado existente.
             <input type="submit" name="enviar" value="Ir" />
         </form>
-        
-        <h3>Validar la entrada de un empleado (suministrando usuario y contraseña)</h3>
+         <form action="eliminarEmpleado.html" method="POST">Eliminar un empleado existente.
+            <input type="submit" name="enviar" value="Ir" />
+        </form>
     </body>
 </html>

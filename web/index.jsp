@@ -12,17 +12,12 @@
         <title>JSP Page</title>
     </head>
     <body>
-        <h1>Empleados</h1>
-        <form action="EmpleadoS" method="POST">Presiona el botón para obtener todos los empleados.
+        <h1>Incidencias y Empleados</h1>
+        <form action="incidenciasEJB.html" method="POST">
             <input type="submit" name="enviar" value="Ir" />
         </form>
-        <form action="insertarEmpleado.html" method="POST">Insertar un empleado nuevo en la B.D..
-            <input type="submit" name="enviar" value="Ir" />
-        </form>
-        <form action="modificarEmpleado.html" method="POST">Modificar el perfil de un empleado existente.
-            <input type="submit" name="enviar" value="Ir" />
-        </form>
-         <form action="eliminarEmpleado.html" method="POST">Eliminar un empleado existente.
+        <h1>Historiales</h1>
+        <form action="historialesEJB.html" method="POST">
             <input type="submit" name="enviar" value="Ir" />
         </form>
     </body>

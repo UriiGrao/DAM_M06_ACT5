@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html>
+    <head>
+        <title>IncidenciasEJB</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <style type="text/css">
+            body {
+                text-align: center;
+            }
+        </style>
+    </head>
+    <body>
+        <h1>Empleados</h1>
+        <form class="formEmp" action="insertarEmpleado.html" method="POST">Insertar un empleado nuevo en la B.D.
+            <input type="submit" name="enviar" value="Ir" />
+        </form>
+        <form class="formEmp" action="loginEmpleado.html" method="POST">Login Usuario
+            <input type="submit" name="enviar" value="Ir" />
+        </form>
+        <form class="formEmp" action="modificarEmpleado.html" method="POST">Modificar el perfil de un empleado existente.
+            <input type="submit" name="enviar" value="Ir" />
+        </form>
+        <form class="formEmp" action="cambiarContraseña.html" method="POST">Modificar contraseña Usuario.
+            <input type="submit" name="enviar" value="Ir" />
+        </form>
+        <form class="formEmp" action="eliminarEmpleado.html" method="POST">Eliminar un empleado existente.
+            <input type="submit" name="enviar" value="Ir" />
+        </form>
+        <br>
+        <div>- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -</div>
+        <h1>Incidencias</h1>
+        <form action="getIncidencia.html" method="POST">Obtener Incidencia por ID
+            <input type="submit" name="enviar" value="Ir" />
+        </form>
+                <form action="getAllIncidencia" method="POST">Obtener Incidencias
+            <input type="submit" name="enviar" value="Ir" />
+        </form>
+        <br>
+        <div>- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -</div>
+        
+        <form action="index.jsp" method="POST">
+            <h2>Volver a la pagina inicial</h2>
+            <input type="submit" name="volver" value="Volver" />
+        </form>
+    </body>
+</html>

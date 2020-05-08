@@ -5,7 +5,11 @@
  */
 package Beans;
 
+import Model.Incidencia;
+import java.util.List;
 import javax.ejb.Stateless;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.PersistenceUnit;
 
 /**
  *
@@ -14,6 +18,14 @@ import javax.ejb.Stateless;
 @Stateless
 public class IncidenciaEJB {
 
-    // Add business logic below. (Right-click in editor and choose
-    // "Insert Code > Add Business Method")
+    @PersistenceUnit
+    EntityManagerFactory emf;
+
+    public List findAllIncidencias() {
+        return emf.createEntityManager().createNamedQuery("Incidencia.findAll").getResultList();
+    }
+    
+//    public Incidencia findIncidenciaByID() {
+//        // return emf.createEntityManager().createNamedQuery("Incidencia.findByIdincidencia").getResultList();
+//    }
 }

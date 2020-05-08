@@ -5,8 +5,11 @@
  */
 package Servlets;
 
+import Beans.EmpleadoEJB;
+import Model.Empleado;
 import java.io.IOException;
 import java.io.PrintWriter;
+import javax.ejb.EJB;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -15,10 +18,13 @@ import javax.servlet.http.HttpServletResponse;
 
 /**
  *
- * @author uriishii
+ * @author uryy9
  */
-@WebServlet(name = "IncidenciaS", urlPatterns = {"/IncidenciaS"})
-public class IncidenciaS extends HttpServlet {
+@WebServlet(name = "loginEmpleado", urlPatterns = {"/loginEmpleado"})
+public class loginEmpleado extends HttpServlet {
+
+    @EJB
+    EmpleadoEJB empleadoEJB;
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -37,10 +43,22 @@ public class IncidenciaS extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet IncidenciaS</title>");            
+            out.println("<title>Servlet loginEmpleado</title>");
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet IncidenciaS at " + request.getContextPath() + "</h1>");
+            String userName = request.getParameter("username");
+            String pass = request.getParameter("pass");
+            Empleado empleado = new Empleado(userName);
+            empleado.setPassword(pass);
+            if (empleadoEJB.loginEmpleado(empleado)) {
+                out.println("Te has Logeado Correctamente!");
+            } else {
+                out.println("Contraseña o Nombre Usuario incorrectos.");
+            }
+            out.println("<form action=\"index.jsp\" method=\"POST\">"
+                    + "Volver a la pagina inicial"
+                    + "<input type=\"submit\" name=\"volver\" value=\"Volver\" />"
+                    + "</form>");
             out.println("</body>");
             out.println("</html>");
         }

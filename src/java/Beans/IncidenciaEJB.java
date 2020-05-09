@@ -6,10 +6,13 @@
 package Beans;
 
 import Model.Incidencia;
+import java.util.Iterator;
 import java.util.List;
 import javax.ejb.Stateless;
+import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.PersistenceUnit;
+import javax.persistence.Query;
 
 /**
  *
@@ -24,8 +27,19 @@ public class IncidenciaEJB {
     public List findAllIncidencias() {
         return emf.createEntityManager().createNamedQuery("Incidencia.findAll").getResultList();
     }
-    
-//    public Incidencia findIncidenciaByID() {
-//        // return emf.createEntityManager().createNamedQuery("Incidencia.findByIdincidencia").getResultList();
-//    }
+
+    public Incidencia findIncidenciaByID(String idString) {
+        int idInci = Integer.parseInt(idString);
+        Query q = emf.createEntityManager().createNamedQuery("Incidencia.findByIdincidencia");
+        q.setParameter("idincidencia", idInci);
+        List<Incidencia> result = q.getResultList();
+        Iterator iter = result.iterator();
+        return (Incidencia) iter.next();
+    }
+
+    public void createIncidencia(Incidencia incidencia) {
+        EntityManager em = emf.createEntityManager();
+        em.persist(incidencia);
+        em.close();
+    }
 }

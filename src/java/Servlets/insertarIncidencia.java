@@ -5,10 +5,13 @@
  */
 package Servlets;
 
-import Beans.EmpleadoEJB;
+import Beans.IncidenciaEJB;
 import Model.Empleado;
+import Model.Incidencia;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.text.SimpleDateFormat;
+import java.util.List;
 import javax.ejb.EJB;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -20,11 +23,11 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author uriishii
  */
-@WebServlet(name = "modificarEmpleado", urlPatterns = {"/modificarEmpleado"})
-public class modificarEmpleado extends HttpServlet {
+@WebServlet(name = "insertarIncidencia", urlPatterns = {"/insertarIncidencia"})
+public class insertarIncidencia extends HttpServlet {
 
     @EJB
-    EmpleadoEJB empleadoEJB;
+    IncidenciaEJB incidenciaEJB;
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -43,22 +46,33 @@ public class modificarEmpleado extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet modificarEmpleado</title>");
+            out.println("<title>Servlet insertarIncidencia</title>");
             out.println("<style type=\"text/css\">"
                     + "body {"
                     + "text-align: center; }"
                     + "</style>");
             out.println("</head>");
             out.println("<body>");
-            String userName = request.getParameter("username");
-            String name = request.getParameter("name");
-            String phone = request.getParameter("phone");
-            Empleado e = new Empleado(userName, "", name, phone);
-            if (empleadoEJB.modificarEmpleado(e)) {
-                out.println("Empleado modificado.");
-            } else {
-                out.println("No hay ningun empleado con ese Nombre de Usuario");
-            }
+            String userNameOrigen = request.getParameter("userNameOrigen");
+            Empleado origen = new Empleado(userNameOrigen);
+            String userNameDestino = request.getParameter("userNameDestino");
+            Empleado destino = new Empleado(userNameDestino);
+            String detalles = request.getParameter("detalles");
+            java.util.Date d = new java.util.Date();
+            SimpleDateFormat plantilla = new SimpleDateFormat("dd/MM/yyyy H:mm");
+            String tiempo = plantilla.format(d);
+            String tipo = request.getParameter("tipoInci");
+            Incidencia incidencia = new Incidencia();
+            incidencia.setDetalle(detalles);
+            incidencia.setTipo(tipo);
+            incidencia.setFechahora(tiempo);
+            incidencia.setOrigen(origen);
+            incidencia.setDestino(destino);
+            List<Incidencia> incidencias = incidenciaEJB.findAllIncidencias();
+            int idInci = incidencias.size() + 1;
+            incidencia.setIdincidencia(idInci);
+            incidenciaEJB.createIncidencia(incidencia);
+            out.println("Incidencia Creada Correctamente.");
             out.println("<form action=\"index.jsp\" method=\"POST\">"
                     + "Volver a la pagina inicial"
                     + "<input type=\"submit\" name=\"volver\" value=\"Volver\" />"
@@ -68,7 +82,7 @@ public class modificarEmpleado extends HttpServlet {
         }
     }
 
-    // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
+// <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
      * Handles the HTTP <code>GET</code> method.
      *

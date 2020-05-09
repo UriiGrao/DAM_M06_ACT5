@@ -10,6 +10,11 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>JSP Page</title>
+        <style type="text/css">
+            body {
+                text-align: center;
+            }
+        </style>
     </head>
     <body>
         <h1>Incidencias y Empleados</h1>

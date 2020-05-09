@@ -6,7 +6,6 @@
 package Beans;
 
 import Model.Empleado;
-import com.sun.xml.rpc.wsdl.framework.Entity;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;

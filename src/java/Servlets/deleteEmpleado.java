@@ -44,6 +44,10 @@ public class deleteEmpleado extends HttpServlet {
             out.println("<html>");
             out.println("<head>");
             out.println("<title>Servlet deleteEmpleado</title>");
+             out.println("<style type=\"text/css\">"
+                    + "body {"
+                    + "text-align: center; }"
+                    + "</style>");
             out.println("</head>");
             out.println("<body>");
             String username = request.getParameter("username");

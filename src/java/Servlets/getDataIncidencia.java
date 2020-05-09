@@ -9,6 +9,7 @@ import Beans.EmpleadoEJB;
 import Model.Empleado;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.List;
 import javax.ejb.EJB;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -20,8 +21,8 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author uriishii
  */
-@WebServlet(name = "modificarEmpleado", urlPatterns = {"/modificarEmpleado"})
-public class modificarEmpleado extends HttpServlet {
+@WebServlet(name = "getDataIncidencia", urlPatterns = {"/getDataIncidencia"})
+public class getDataIncidencia extends HttpServlet {
 
     @EJB
     EmpleadoEJB empleadoEJB;
@@ -39,26 +40,43 @@ public class modificarEmpleado extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
-            /* TODO output your page here. You may use following sample code. */
+            List<Empleado> empleados = empleadoEJB.findAllEmpleados();
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet modificarEmpleado</title>");
+            out.println("<title>Servlet getDataIncidencia</title>");
             out.println("<style type=\"text/css\">"
                     + "body {"
                     + "text-align: center; }"
                     + "</style>");
             out.println("</head>");
             out.println("<body>");
-            String userName = request.getParameter("username");
-            String name = request.getParameter("name");
-            String phone = request.getParameter("phone");
-            Empleado e = new Empleado(userName, "", name, phone);
-            if (empleadoEJB.modificarEmpleado(e)) {
-                out.println("Empleado modificado.");
-            } else {
-                out.println("No hay ningun empleado con ese Nombre de Usuario");
+            out.println("<form action=\"insertarIncidencia\" method=\"POST\">");
+            out.println("<p>Tipo de Incidencia: Normal O Urgente\n"
+                    + "                <select name=\"tipoInci\"> \n"
+                    + "                    <option>Normal</option>\n"
+                    + "                    <option>Urgente</option>\n"
+                    + "                </select>\n"
+                    + "            </p>");
+            out.println("<p>Nombre Usuario Origen:");
+            out.println("<select name=\"userNameOrigen\">");
+            for (Empleado empleado : empleados) {
+                out.println("<option>" + empleado.getNombreusuario() + "</option>");
             }
+            out.println("</select>");
+            out.println("</p>");
+            out.println("<p>Nombre Usuario Destino:");
+            out.println("<select name=\"userNameDestino\">");
+            for (Empleado empleado : empleados) {
+                out.println("<option>" + empleado.getNombreusuario() + "</option>");
+            }
+            out.println("</select>");
+            out.println("</p>");
+            out.println("<p>Detalles de la incidencia: ");
+            out.println("<input type=\"text\" name=\"detalles\">");
+            out.println("</p>");
+            out.println("<input type=\"submit\" value=\"insertar\">");
+            out.println("</form>");
             out.println("<form action=\"index.jsp\" method=\"POST\">"
                     + "Volver a la pagina inicial"
                     + "<input type=\"submit\" name=\"volver\" value=\"Volver\" />"

@@ -61,6 +61,12 @@ public class getAllIncidencia extends HttpServlet {
                         + incidencia.getTipo()
                         + ", <b>Detalles: </b>"
                         + incidencia.getDetalle()
+                        + ", <b>Fecha Hora: </b>"
+                        + incidencia.getFechahora()
+                        + ", <b> Empresario Origen: </b>"
+                        + incidencia.getOrigen().getNombreusuario()
+                        + ", <b> Empresario Destino: </b>"
+                        + incidencia.getDestino().getNombreusuario()
                         + "<br>"
                 );
             }

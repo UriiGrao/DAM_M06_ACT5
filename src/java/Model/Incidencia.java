@@ -31,7 +31,8 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "Incidencia.findAll", query = "SELECT i FROM Incidencia i")
     , @NamedQuery(name = "Incidencia.findByIdincidencia", query = "SELECT i FROM Incidencia i WHERE i.idincidencia = :idincidencia")
     , @NamedQuery(name = "Incidencia.findByFechahora", query = "SELECT i FROM Incidencia i WHERE i.fechahora = :fechahora")
-    , @NamedQuery(name = "Incidencia.findByTipo", query = "SELECT i FROM Incidencia i WHERE i.tipo = :tipo")})
+    , @NamedQuery(name = "Incidencia.findByTipo", query = "SELECT i FROM Incidencia i WHERE i.tipo = :tipo")
+    , @NamedQuery(name = "Incidencia.getLastId", query = "SELECT count(i) FROM Incidencia i")})
 public class Incidencia implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -149,5 +150,5 @@ public class Incidencia implements Serializable {
     public String toString() {
         return "Model.Incidencia[ idincidencia=" + idincidencia + " ]";
     }
-    
+
 }

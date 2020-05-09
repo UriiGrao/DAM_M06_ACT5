@@ -44,6 +44,10 @@ public class insertarEmpleado extends HttpServlet {
             out.println("<html>");
             out.println("<head>");
             out.println("<title>Servlet insertarEmpleado</title>");
+            out.println("<style type=\"text/css\">"
+                    + "body {"
+                    + "text-align: center; }"
+                    + "</style>");
             out.println("</head>");
             out.println("<body>");
             String userName = request.getParameter("username");

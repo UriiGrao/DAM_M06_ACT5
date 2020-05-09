@@ -3,14 +3,13 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Projects/DAM_M06_ACT5/src/java/Servlets/EmpleadoS.java</file>
-            <file>file:/C:/Projects/DAM_M06_ACT5/web/getIncidencia.html</file>
-            <file>file:/C:/Projects/DAM_M06_ACT5/web/index.jsp</file>
-            <file>file:/C:/Projects/DAM_M06_ACT5/src/java/Servlets/getAllIncidencia.java</file>
-            <file>file:/C:/Projects/DAM_M06_ACT5/src/java/Beans/IncidenciaEJB.java</file>
-            <file>file:/C:/Projects/DAM_M06_ACT5/src/java/Servlets/getIncidencia.java</file>
-            <file>file:/C:/Projects/DAM_M06_ACT5/src/java/Beans/EmpleadoEJB.java</file>
-            <file>file:/C:/Projects/DAM_M06_ACT5/web/incidenciasEJB.html</file>
+            <file>file:/D:/Stucom/DAM_2/M06/DAM_M06_ACT5/web/incidenciasEJB.html</file>
+            <file>file:/D:/Stucom/DAM_2/M06/DAM_M06_ACT5/src/java/Beans/IncidenciaEJB.java</file>
+            <file>file:/D:/Stucom/DAM_2/M06/DAM_M06_ACT5/src/java/Beans/EmpleadoEJB.java</file>
+            <file>file:/D:/Stucom/DAM_2/M06/DAM_M06_ACT5/src/java/Servlets/getIncidencia.java</file>
+            <file>file:/D:/Stucom/DAM_2/M06/DAM_M06_ACT5/src/java/Model/Incidencia.java</file>
+            <file>file:/D:/Stucom/DAM_2/M06/DAM_M06_ACT5/src/java/Servlets/insertarIncidencia.java</file>
+            <file>file:/D:/Stucom/DAM_2/M06/DAM_M06_ACT5/web/getIncidencia.html</file>
         </group>
     </open-files>
 </project-private>

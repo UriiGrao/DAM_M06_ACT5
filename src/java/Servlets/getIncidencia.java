@@ -52,8 +52,29 @@ public class getIncidencia extends HttpServlet {
                     + "</style>");
             out.println("</head>");
             out.println("<body>");
-            
+            String idIncidencia = request.getParameter("idIncidencia");
+            out.println("HI");
 
+            Incidencia incidencia = incidenciaEJB.findIncidenciaByID(idIncidencia);
+            if (incidencia != null) {
+                out.print(
+                        "<b>id: </b>"
+                        + incidencia.getIdincidencia()
+                        + ", <b>Tipo: </b>"
+                        + incidencia.getTipo()
+                        + ", <b>Detalles: </b>"
+                        + incidencia.getDetalle()
+                        + ", <b>Fecha Hora: </b>"
+                        + incidencia.getFechahora()
+                        + ", <b> Empresario Origen: </b>"
+                        + incidencia.getOrigen().getNombreusuario()
+                        + ", <b> Empresario Destino: </b>"
+                        + incidencia.getDestino().getNombreusuario()
+                        + "<br>");
+            } else {
+                out.println("No existe incidencia con ese ID.");
+            }
+            out.println("- - - - - -  --  - -- - - - - - - - - - - - ");
             out.println("<form action=\"incidenciasEJB.html\" method=\"POST\">"
                     + "Volver a la pagina inicial"
                     + "<input type=\"submit\" name=\"volver\" value=\"Volver\" />"

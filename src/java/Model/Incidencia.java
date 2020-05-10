@@ -32,7 +32,10 @@ import javax.xml.bind.annotation.XmlRootElement;
     , @NamedQuery(name = "Incidencia.findByIdincidencia", query = "SELECT i FROM Incidencia i WHERE i.idincidencia = :idincidencia")
     , @NamedQuery(name = "Incidencia.findByFechahora", query = "SELECT i FROM Incidencia i WHERE i.fechahora = :fechahora")
     , @NamedQuery(name = "Incidencia.findByTipo", query = "SELECT i FROM Incidencia i WHERE i.tipo = :tipo")
-    , @NamedQuery(name = "Incidencia.getLastId", query = "SELECT count(i) FROM Incidencia i")})
+    , @NamedQuery(name = "Incidencia.getLastId", query = "SELECT count(i) FROM Incidencia i")
+    , @NamedQuery(name = "Incidencia.findByOrigen", query = "SELECT i FROM Incidencia i WHERE i.origen = :origen")
+})
+
 public class Incidencia implements Serializable {
 
     private static final long serialVersionUID = 1L;

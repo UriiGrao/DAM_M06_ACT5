@@ -6,11 +6,13 @@
 package Beans;
 
 import Model.Empleado;
+import java.util.Iterator;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.PersistenceUnit;
+import javax.persistence.Query;
 
 /**
  *
@@ -24,6 +26,15 @@ public class EmpleadoEJB {
 
     public List findAllEmpleados() {
         return emf.createEntityManager().createNamedQuery("Empleado.findAll").getResultList();
+    }
+
+    public Empleado findEmpleado(String userName) {
+        Query q = emf.createEntityManager().createNamedQuery("Empleado.findByNombreusuario");
+        q.setParameter("nombreusuario", userName);
+        List<Empleado> result = q.getResultList();
+        Iterator iter = result.iterator();
+        Empleado empleado = (Empleado) iter.next();
+        return empleado;
     }
 
     public boolean insertarEmpleado(Empleado e) {

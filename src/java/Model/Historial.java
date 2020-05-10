@@ -32,7 +32,8 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "Historial.findAll", query = "SELECT h FROM Historial h")
     , @NamedQuery(name = "Historial.findByIdevento", query = "SELECT h FROM Historial h WHERE h.idevento = :idevento")
     , @NamedQuery(name = "Historial.findByTipo", query = "SELECT h FROM Historial h WHERE h.tipo = :tipo")
-    , @NamedQuery(name = "Historial.findByFechahora", query = "SELECT h FROM Historial h WHERE h.fechahora = :fechahora")})
+    , @NamedQuery(name = "Historial.findByFechahora", query = "SELECT h FROM Historial h WHERE h.fechahora = :fechahora")
+})
 public class Historial implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -124,5 +125,5 @@ public class Historial implements Serializable {
     public String toString() {
         return "Model.Historial[ idevento=" + idevento + " ]";
     }
-    
+
 }

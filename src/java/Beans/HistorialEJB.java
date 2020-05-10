@@ -5,7 +5,13 @@
  */
 package Beans;
 
+import Model.Historial;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import javax.ejb.Stateless;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.PersistenceUnit;
 
 /**
  *
@@ -14,6 +20,25 @@ import javax.ejb.Stateless;
 @Stateless
 public class HistorialEJB {
 
-    // Add business logic below. (Right-click in editor and choose
-    // "Insert Code > Add Business Method")
+    @PersistenceUnit
+    EntityManagerFactory emf;
+
+    public List findAllEventos() {
+        return emf.createEntityManager().createNamedQuery("Historial.findAll").getResultList();
+    }
+
+    public Map findAllEventosGroping() {
+        List<Historial> eventos = emf.createEntityManager().createNamedQuery("Historial.findAll").getResultList();
+        Map<String, Integer> empleadosRanking = new HashMap<String, Integer>();
+        for (Historial evento : eventos) {
+            String userName = evento.getEmpleado().getNombreusuario();
+            if (empleadosRanking.containsKey(userName)) {
+                int valor = empleadosRanking.get(userName).intValue();
+                empleadosRanking.put(userName, valor + 1);
+            } else {
+                empleadosRanking.put(evento.getEmpleado().getNombreusuario(), 1);
+            }
+        }
+        return empleadosRanking;
+    }
 }

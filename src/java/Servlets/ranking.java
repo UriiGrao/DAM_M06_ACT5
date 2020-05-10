@@ -5,10 +5,16 @@
  */
 package Servlets;
 
-import Beans.IncidenciaEJB;
+import Beans.HistorialEJB;
+import Model.Historial;
 import Model.Incidencia;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.Iterator;
+import java.util.LinkedHashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 import javax.ejb.EJB;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -20,11 +26,11 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author uryy9
  */
-@WebServlet(name = "getIncidencia", urlPatterns = {"/getIncidencia"})
-public class getIncidencia extends HttpServlet {
+@WebServlet(name = "ranking", urlPatterns = {"/ranking"})
+public class ranking extends HttpServlet {
 
     @EJB
-    IncidenciaEJB incidenciaEJB;
+    HistorialEJB historialEJB;
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -39,40 +45,27 @@ public class getIncidencia extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
-
+            Map<String, Integer> mapRank = historialEJB.findAllEventosGroping();
             /* TODO output your page here. You may use following sample code. */
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet getIncidencia</title>");
+            out.println("<title>Servlet ranking</title>");
             out.println("<style type=\"text/css\">"
                     + "body {"
                     + "text-align: center; }"
                     + "</style>");
             out.println("</head>");
             out.println("<body>");
-            String idIncidencia = request.getParameter("idIncidencia");
-            Incidencia incidencia = incidenciaEJB.findIncidenciaByID(idIncidencia);
-            if (incidencia != null) {
-                out.print(
-                        "<b>id: </b>"
-                        + incidencia.getIdincidencia()
-                        + ", <b>Tipo: </b>"
-                        + incidencia.getTipo()
-                        + ", <b>Detalles: </b>"
-                        + incidencia.getDetalle()
-                        + ", <b>Fecha Hora: </b>"
-                        + incidencia.getFechahora()
-                        + ", <b> Empresario Origen: </b>"
-                        + incidencia.getOrigen().getNombreusuario()
-                        + ", <b> Empresario Destino: </b>"
-                        + incidencia.getDestino().getNombreusuario()
-                        + "<br>");
-            } else {
-                out.println("No existe incidencia con ese ID.");
-            }
+            final Map<String, Integer> sortedByCount = mapRank.entrySet()
+                    .stream()
+                    .sorted(Map.Entry.comparingByValue())
+                    .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue, (e1, e2) -> e1, LinkedHashMap::new));
+            sortedByCount.forEach((k, v)
+                    -> out.println("Empleado: " + k + ": Nº Eventos: " + v + "<br>")
+            );
             out.println("- - - - - -  --  - -- - - - - - - - - - - - ");
-            out.println("<form action=\"incidenciasEJB.html\" method=\"POST\">"
+            out.println("<form action=\"historialesEJB.html\" method=\"POST\">"
                     + "Volver a la pagina inicial"
                     + "<input type=\"submit\" name=\"volver\" value=\"Volver\" />"
                     + "</form>");

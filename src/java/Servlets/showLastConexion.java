@@ -5,11 +5,8 @@
  */
 package Servlets;
 
-import Beans.IncidenciaEJB;
-import Model.Incidencia;
 import java.io.IOException;
 import java.io.PrintWriter;
-import javax.ejb.EJB;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -20,11 +17,8 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author uryy9
  */
-@WebServlet(name = "getIncidencia", urlPatterns = {"/getIncidencia"})
-public class getIncidencia extends HttpServlet {
-
-    @EJB
-    IncidenciaEJB incidenciaEJB;
+@WebServlet(name = "showLastConexion", urlPatterns = {"/showLastConexion"})
+public class showLastConexion extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -39,43 +33,18 @@ public class getIncidencia extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
-
             /* TODO output your page here. You may use following sample code. */
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet getIncidencia</title>");
+            out.println("<title>Servlet showLastConexion</title>");
             out.println("<style type=\"text/css\">"
                     + "body {"
                     + "text-align: center; }"
                     + "</style>");
             out.println("</head>");
             out.println("<body>");
-            String idIncidencia = request.getParameter("idIncidencia");
-            Incidencia incidencia = incidenciaEJB.findIncidenciaByID(idIncidencia);
-            if (incidencia != null) {
-                out.print(
-                        "<b>id: </b>"
-                        + incidencia.getIdincidencia()
-                        + ", <b>Tipo: </b>"
-                        + incidencia.getTipo()
-                        + ", <b>Detalles: </b>"
-                        + incidencia.getDetalle()
-                        + ", <b>Fecha Hora: </b>"
-                        + incidencia.getFechahora()
-                        + ", <b> Empresario Origen: </b>"
-                        + incidencia.getOrigen().getNombreusuario()
-                        + ", <b> Empresario Destino: </b>"
-                        + incidencia.getDestino().getNombreusuario()
-                        + "<br>");
-            } else {
-                out.println("No existe incidencia con ese ID.");
-            }
-            out.println("- - - - - -  --  - -- - - - - - - - - - - - ");
-            out.println("<form action=\"incidenciasEJB.html\" method=\"POST\">"
-                    + "Volver a la pagina inicial"
-                    + "<input type=\"submit\" name=\"volver\" value=\"Volver\" />"
-                    + "</form>");
+            
             out.println("</body>");
             out.println("</html>");
         }

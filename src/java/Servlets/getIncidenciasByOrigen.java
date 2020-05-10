@@ -5,10 +5,11 @@
  */
 package Servlets;
 
-import Beans.IncidenciaEJB;
-import Model.Incidencia;
+import Beans.EmpleadoEJB;
+import Model.Empleado;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.List;
 import javax.ejb.EJB;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -20,11 +21,11 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author uryy9
  */
-@WebServlet(name = "getIncidencia", urlPatterns = {"/getIncidencia"})
-public class getIncidencia extends HttpServlet {
+@WebServlet(name = "getIncidenciasByOrigen", urlPatterns = {"/getIncidenciasByOrigen"})
+public class getIncidenciasByOrigen extends HttpServlet {
 
     @EJB
-    IncidenciaEJB incidenciaEJB;
+    EmpleadoEJB empleadoEJB;
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -39,40 +40,29 @@ public class getIncidencia extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
+            List<Empleado> empleados = empleadoEJB.findAllEmpleados();
 
             /* TODO output your page here. You may use following sample code. */
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet getIncidencia</title>");
             out.println("<style type=\"text/css\">"
                     + "body {"
                     + "text-align: center; }"
                     + "</style>");
             out.println("</head>");
             out.println("<body>");
-            String idIncidencia = request.getParameter("idIncidencia");
-            Incidencia incidencia = incidenciaEJB.findIncidenciaByID(idIncidencia);
-            if (incidencia != null) {
-                out.print(
-                        "<b>id: </b>"
-                        + incidencia.getIdincidencia()
-                        + ", <b>Tipo: </b>"
-                        + incidencia.getTipo()
-                        + ", <b>Detalles: </b>"
-                        + incidencia.getDetalle()
-                        + ", <b>Fecha Hora: </b>"
-                        + incidencia.getFechahora()
-                        + ", <b> Empresario Origen: </b>"
-                        + incidencia.getOrigen().getNombreusuario()
-                        + ", <b> Empresario Destino: </b>"
-                        + incidencia.getDestino().getNombreusuario()
-                        + "<br>");
-            } else {
-                out.println("No existe incidencia con ese ID.");
+            out.println("<form action=\"showIncidenciasByOrigen\" method=\"POST\">");
+            out.println("<p>Nombre Usuario Origen:");
+            out.println("<select name=\"userNameOrigen\">");
+            for (Empleado empleado : empleados) {
+                out.println("<option>" + empleado.getNombreusuario() + "</option>");
             }
-            out.println("- - - - - -  --  - -- - - - - - - - - - - - ");
-            out.println("<form action=\"incidenciasEJB.html\" method=\"POST\">"
+            out.println("</select>");
+            out.println("</p>");
+            out.println("<input type=\"submit\" value=\"Buscar\">");
+            out.println("</form>");
+            out.println("<form action=\"index.jsp\" method=\"POST\">"
                     + "Volver a la pagina inicial"
                     + "<input type=\"submit\" name=\"volver\" value=\"Volver\" />"
                     + "</form>");

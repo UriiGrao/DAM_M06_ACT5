@@ -5,9 +5,11 @@
  */
 package Beans;
 
+import Model.Empleado;
 import Model.Incidencia;
 import java.util.Iterator;
 import java.util.List;
+import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -21,6 +23,8 @@ import javax.persistence.Query;
 @Stateless
 public class IncidenciaEJB {
 
+    @EJB
+    EmpleadoEJB empleadoEJB;
     @PersistenceUnit
     EntityManagerFactory emf;
 
@@ -41,5 +45,14 @@ public class IncidenciaEJB {
         EntityManager em = emf.createEntityManager();
         em.persist(incidencia);
         em.close();
+    }
+
+    public List findIncidenciaByOrigen(String userNameOrigen) {
+        Empleado empleado = empleadoEJB.findEmpleado(userNameOrigen);
+        EntityManager em = emf.createEntityManager();
+        Query q = em.createQuery("SELECT i FROM incidencia i WHERE i.origen = :origen");
+        q.setParameter("origen", empleado);
+        List incidencias = q.getResultList();
+        return incidencias;
     }
 }
